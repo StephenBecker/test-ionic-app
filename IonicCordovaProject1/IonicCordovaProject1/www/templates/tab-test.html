@@ -5,7 +5,7 @@
         <ion-radio ng-model="choice" ng-value="'device'" ng-click='display = device' >Device Info</ion-radio>
         <ion-radio ng-model="choice" ng-value="'network'" ng-click='display = network' >Network Info</ion-radio>
     </ion-list>
-
+//onscreen display
    <div ng-show="choice">
            <div ng-repeat="(key, val) in display">
                <h5> {{key}} : {{val}}</h5>
