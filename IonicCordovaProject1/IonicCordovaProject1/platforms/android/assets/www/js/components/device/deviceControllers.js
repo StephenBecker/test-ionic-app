@@ -3,7 +3,7 @@
 
 
 
-    .controller('testCtrl', function ($scope, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
+    .controller('deviceCtrl', function ($scope, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
 
         $scope.display = {};
         $scope.navigation = {};

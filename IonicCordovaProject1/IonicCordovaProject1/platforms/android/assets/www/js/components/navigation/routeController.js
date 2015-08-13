@@ -63,8 +63,8 @@
         url: '/test',
         views: {
             'tab-test': {
-                templateUrl: 'templates/tab-test.html',
-                controller: 'testCtrl'
+                templateUrl: 'templates/tab-device.html',
+                controller: 'deviceCtrl'
             }
         }
     });

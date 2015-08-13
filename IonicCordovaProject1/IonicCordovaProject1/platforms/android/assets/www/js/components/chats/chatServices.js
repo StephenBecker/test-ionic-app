@@ -1,4 +1,6 @@
-angular.module('starter.services', [])
+(function() {
+
+angular.module('services')
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -16,19 +18,19 @@ angular.module('starter.services', [])
     face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
   }, {
     id: 2,
-    name: 'Andrew Jostlin',
-    lastText: 'Did you get the ice cream?',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 3,
     name: 'Adam Bradleyson',
     lastText: 'I should buy a boat',
     face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
   }, {
-    id: 4,
+    id: 3,
     name: 'Perry Governor',
     lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
+    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
   }];
 
   return {
@@ -48,3 +50,4 @@ angular.module('starter.services', [])
     }
   };
 });
+}());
