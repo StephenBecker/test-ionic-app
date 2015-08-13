@@ -1,16 +1,23 @@
-<ion-view view-title="Test">
-  <ion-content>
-    <ion-list>
-        <ion-radio ng-model="choice" ng-value="'navigation'" ng-click='display = navigation'>Navigation</ion-radio>
-        <ion-radio ng-model="choice" ng-value="'device'" ng-click='display = device' >Device Info</ion-radio>
-        <ion-radio ng-model="choice" ng-value="'network'" ng-click='display = network' >Network Info</ion-radio>
-    </ion-list>
+<ion-view view-title="Device Info">
+    <ion-content>
+        <ion-list>
+            <ion-radio ng-model="choice" ng-value="'navigation'" ng-click='display = navigation; Selected = choice'>Navigation</ion-radio>
+            <ion-radio ng-model="choice" ng-value="'device'" ng-click='display = device; Selected = choice'>Device Info</ion-radio>
+            <ion-radio ng-model="choice" ng-value="'network'" ng-click='display = network; Selected = choice'>Network Info</ion-radio>
+        </ion-list>
 //onscreen display
-   <div ng-show="choice">
-           <div ng-repeat="(key, val) in display">
-               <h5> {{key}} : {{val}}</h5>
-           </div>        
-   </div>
-      
-  </ion-content>
+        <div ng-show="choice">
+
+            <div ng-show="choice=='network'" ng-repeat="(key, val) in network">
+                <h5> {{key}} : {{val}}</h5>
+            </div>
+            <div ng-show="choice=='device'" ng-repeat="(key, val) in device">
+                <h5> {{key}} : {{val}}</h5>
+            </div>
+            <div ng-show="choice=='navigation'" ng-repeat="(key, val) in navigation">
+                <h5> {{key}} : {{val}}</h5>
+            </div>
+        </div>
+
+    </ion-content>
 </ion-view>
