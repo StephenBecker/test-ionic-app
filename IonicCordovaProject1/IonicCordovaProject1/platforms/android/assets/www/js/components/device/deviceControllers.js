@@ -3,23 +3,33 @@
 
 
 
-    .controller('deviceCtrl', function ($scope, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
+    .controller('deviceCtrl', function ($scope,  $interval, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
+        
 
-        $scope.display = {};
-        $scope.navigation = {};
-        $scope.navigation.Lattitude = {};
-        $scope.navigation.Longitude = {};
-        $scope.navigation.acc = {};
+        //get location once then checklocation every second afterward
+        getCurrentLoc(posOptions);
+
+        $scope.test = function(text) {
+            alert(text);
+            getNetwork();
+        }
+
+        //  Network Functions;
+        getNetwork();
 
        
-        //  Network Functions;
+        function getNetwork() {
+            $scope.network = {
+                "Connection type": $cordovaNetwork.getNetwork(),
+                "Is Online": $cordovaNetwork.isOnline(),
+                "Is Offline": $cordovaNetwork.isOffline()
+            };
+            alert("getNetwork " + $cordovaNetwork.getNetwork());
+            
+        }
 
+  
 
-        $scope.network = {
-            "Connection type": $cordovaNetwork.getNetwork(),
-            "Is Online": $cordovaNetwork.isOnline(),
-            "Is Offline": $cordovaNetwork.isOffline()
-        };
 
         //
         //Device info
@@ -41,49 +51,55 @@
         //
         //Navigation functions
         //
-        
-        var posOptions = { timeout: 10000, enableHighAccuracy: false };
-        var watchOptions = {
-            frequency : 1000,
-            timeout : 3000,
-            enableHighAccuracy: false // may cause errors if true
-        };
-        getCurrentLoc(posOptions);
-        watchLocation(watchOptions);
 
-       
-        
+        var posOptions =
+            {
+                timeout: 10000,
+                enableHighAccuracy: false
+            };
+        var watchOptions =
+            {
+                frequency: 1000,
+                timeout: 3000,
+                enableHighAccuracy: false
+            };
+
         function updateLoc(position) {
-            var lat = position.coords.latitude,
-            long = position.coords.longitude,
-            acc = position.coords.accuracy;
+            var acc = position.coords.accuracy;
 
-            $scope.navigation = { "Lattitude": lat, "Longitude": long, "Accuracy": acc + " meters (or " + Math.round(acc * 3.28084) + " feet)" };
+            $scope.navigation = {
+                "Lattitude": position.coords.latitude,
+                "Longitude": position.coords.longitude,
+                "Accuracy" : acc + " meters (or " + Math.round(acc * 3.28084) + " feet)"
+            };
         };
-       
+
         function getCurrentLoc(posOptions) {
-            $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) { updateLoc(position) });
+            $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position)
+                {
+                 updateLoc(position)
+                }
+            );
+            watchLocation(watchOptions);
         };
-        function watchLocation(watchOptions) {
+
+        //updates location on a defined interval
+        function watchLocation(watchOptions)
+        {
             var watch = $cordovaGeolocation.watchPosition(watchOptions);
             watch.then(
               null,
-              function (err) {
+              function (err)
+              {
                   // error
               },
-              function (position) {
+              function (position)
+              {
                   updateLoc(position);
-                  if (true) {
-                    
-                  }
               });
         };
-        $scope.$watchGroup([$scope.navigation.Lattitude, $scope.navigation.Longitude, $scope.navigation.acc], function (newValues, oldValues, scope) {
-            $scope.display = $scope.navigation;
-        });
-       
+
+
     })
-    
+
 }());
