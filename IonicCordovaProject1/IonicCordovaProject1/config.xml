@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappe2785d518e9f4f6ea03055878dd7a400" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
-  <name>ionic-test-app</name>
-  <description>Sandbox app for practice</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">SBecker</author>
+  <name>IonicCordovaProject1</name>
+  <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team </author>
   <content src="index.html" />
   <access origin="*" />
   <vs:features />
@@ -90,4 +90,13 @@
   <platform name="wp8">
     <splash src="res/screens/wp8/SplashScreenImage.jpg" width="480" height="800" />
   </platform>
+  <vs:plugin name="org.apache.cordova.network-information" version="0.2.15" />
+  <vs:plugin name="org.apache.cordova.vibration" version="0.3.13" />
+  <preference name="KeepRunning" value="True" />
+  <preference name="ShowTitle" value="False" />
+  <preference name="InAppBrowserStorageEnabled" value="True" />
+  <preference name="SuppressesIncrementalRendering" value="False" />
+  <vs:plugin name="org.apache.cordova.contacts" version="" />
+  <vs:plugin name="org.apache.cordova.geolocation" version="0.3.12" />
+  <vs:plugin name="org.apache.cordova.device" version="0.3.0" />
 </widget>
