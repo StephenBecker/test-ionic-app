@@ -1,15 +1,23 @@
 <ion-view view-title="Device Info">
     <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
         <ion-list>
             <ion-radio ng-model="choice" ng-value="'navigation'" >Navigation</ion-radio>
             <ion-radio ng-model="choice" ng-value="'device'">Device Info</ion-radio>
-            <ion-radio ng-model="choice" ng-value="'network'" >Network Info</ion-radio>
+            <ion-radio ng-model="choice" ng-value="'network'">Network Info</ion-radio>
         </ion-list>
 
         <div ng-show="choice">
 
-            <div ng-show="choice=='network'" ng-repeat="(key, val) in network">
-                <h5> {{key}} : {{val}}</h5>
+            <div ng-show="choice=='network'">
+                <div ng-repeat="(key, val) in network">
+                    <h5> {{key}} : {{val}}</h5>
+                </div>
+                
+
+
             </div>
             <div ng-show="choice=='device'" ng-repeat="(key, val) in device">
                 <h5> {{key}} : {{val}}</h5>

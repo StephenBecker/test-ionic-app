@@ -3,33 +3,72 @@
 
 
 
-    .controller('deviceCtrl', function ($scope,  $interval, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
-        
+    .controller('deviceCtrl', function ($scope, $q, $interval, $cordovaNetwork, $cordovaDevice, $cordovaGeolocation) {
 
-        //get location once then checklocation every second afterward
-        getCurrentLoc(posOptions);
+        $scope.navigation = { "Loading": " GPS Data" };
 
-        //  Network Functions;
+        //get location once then checklocation every defined interval afterward
+        getCurrentLoc();
+        watchLocation();
+
+        //get network info initially
         getNetwork();
 
-       
+        //update on swipe
+        $scope.doRefresh = function () {
+            var promiseA = getNetwork();
+            var promiseB = promiseA.then(function () {
+                
+                getCurrentLoc();
+                
+            });
+            promiseB.finally(function () {
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+
+
+
+        /*
+        *
+        *  Network Functions;
+        *
+        */
+        //adds promise to a call
+        function deferThis(functionName) {
+            var def = $q.defer();
+            functionName();
+            def.resolve("");
+            return def.promise;
+        }
+
+
+        //Get network parameters
         function getNetwork() {
+            var def = $q.defer();
+            var d = new Date();
+            var n = d.toLocaleTimeString();
             $scope.network = {
+
                 "Connection type": $cordovaNetwork.getNetwork(),
                 "Is Online": $cordovaNetwork.isOnline(),
-                "Is Offline": $cordovaNetwork.isOffline()
+                "Is Offline": $cordovaNetwork.isOffline(),
+                "Timestamp": n
             };
-           
-            
+            def.resolve("");
+            return def.promise;
+
+
         }
 
   
 
-
-        //
-        //Device info
-        //
-
+        /*
+        *        
+        *        Device info
+        *        
+        */
         $scope.device = {
             // "Device": $cordovaDevice.getDevice(),
             "Cordova Version": $cordovaDevice.getCordova(),
@@ -43,53 +82,60 @@
 
 
 
-        //
-        //Navigation functions
-        //
+        /*
+        *      
+        *   Navigation functions
+        *
+        */
 
-        var posOptions =
-            {
-                timeout: 10000,
-                enableHighAccuracy: false
-            };
-        var watchOptions =
-            {
-                frequency: 1000,
-                timeout: 3000,
-                enableHighAccuracy: false
-            };
+
 
         function updateLoc(position) {
             var acc = position.coords.accuracy;
-
+            var d = new Date();
+            var n = d.toLocaleTimeString();
             $scope.navigation = {
                 "Lattitude": position.coords.latitude,
                 "Longitude": position.coords.longitude,
-                "Accuracy" : acc + " meters (or " + Math.round(acc * 3.28084) + " feet)"
+                "Accuracy": acc + " meters (or " + Math.round(acc * 3.28084) + " feet)",
+                "RequestTimestamp": n,
+                "PosTimestamp": new Date(position.timestamp)
             };
         };
 
-        function getCurrentLoc(posOptions) {
-            $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position)
-                {
-                 updateLoc(position)
-                }
+        //gets current location
+        function getCurrentLoc() {
+
+            var posOptions = {
+                maximumAge: 0,
+                timeout: 10000,
+                enableHighAccuracy: false
+            };
+
+            var promise = $cordovaGeolocation.getCurrentPosition(posOptions);
+            promise.then(function (position) {
+                updateLoc(position)
+            }
+
             );
-            watchLocation(watchOptions);
+            promise.finally(function () {
+                return promise;
+            });
         };
 
         //updates location on a defined interval
-        function watchLocation(watchOptions)
-        {
+        function watchLocation() {
+            var watchOptions = {
+              maximumAge: 60000,
+              enableHighAccuracy: false
+            };
+
             var watch = $cordovaGeolocation.watchPosition(watchOptions);
             watch.then(
               null,
-              function (err)
-              {
-                  // error
+              function (err) {
               },
-              function (position)
-              {
+              function (position) {
                   updateLoc(position);
               });
         };
