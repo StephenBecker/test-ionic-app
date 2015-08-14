@@ -18,9 +18,6 @@ angular.module('starter', ['ionic', 'controllers', 'services', 'routes', 'ngCord
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-      console.log($cordovaNetwork.getNetwork());
-      console.log($cordovaNetwork.isOnline());
-      console.log($cordovaNetwork.isOffline());
       console.log(JSON.stringify(window.navigator));
     }
     if (window.StatusBar) {

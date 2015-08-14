@@ -9,11 +9,6 @@
         //get location once then checklocation every second afterward
         getCurrentLoc(posOptions);
 
-        $scope.test = function(text) {
-            alert(text);
-            getNetwork();
-        }
-
         //  Network Functions;
         getNetwork();
 
@@ -24,7 +19,7 @@
                 "Is Online": $cordovaNetwork.isOnline(),
                 "Is Offline": $cordovaNetwork.isOffline()
             };
-            alert("getNetwork " + $cordovaNetwork.getNetwork());
+           
             
         }
 
