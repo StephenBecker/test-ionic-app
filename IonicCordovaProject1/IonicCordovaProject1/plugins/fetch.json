@@ -28,5 +28,12 @@
             "type": "registry",
             "id": "org.apache.cordova.device"
         }
+    },
+    "nl.x-services.plugins.flashlight": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/Flashlight-PhoneGap-Plugin.git",
+            "subdir": "."
+        }
     }
 }

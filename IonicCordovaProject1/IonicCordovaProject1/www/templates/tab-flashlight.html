@@ -1,7 +1,7 @@
 <ion-view view-title="Flashlight">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
+    <ion-toggle  ng-model="settings.flashlight"  ng-change="flashlightSet(settings.flashlight)">
         Flashlight
     </ion-toggle>
     

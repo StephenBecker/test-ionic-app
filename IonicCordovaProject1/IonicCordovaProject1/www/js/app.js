@@ -15,10 +15,23 @@ angular.module('starter', ['ionic', 'controllers', 'services', 'routes', 'ngCord
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      document.addEventListener("backbutton", function () {
+          // pass exitApp as callbacks to the switchOff method
+          window.plugins.flashlight.switchOff(exitApp, exitApp);
+      }, false);
+
+      function exitApp() {
+          navigator.app.exitApp();
+      }
+
+
+      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       console.log(JSON.stringify(window.navigator));
+      
+
+
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
