@@ -50,11 +50,11 @@
       })
 
     .state('tab.account', {
-        url: '/account',
+        url: '/flashlight',
         views: {
-            'tab-account': {
-                templateUrl: 'templates/tab-account.html',
-                controller: 'AccountCtrl'
+            'tab-flashlight': {
+                templateUrl: 'templates/tab-flashlight.html',
+                controller: 'FlashlightCtrl'
             }
         }
     })

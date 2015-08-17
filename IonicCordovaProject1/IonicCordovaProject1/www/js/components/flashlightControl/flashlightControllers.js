@@ -3,7 +3,7 @@ angular.module('controllers')
 
 
 
-.controller('AccountCtrl', function($scope) {
+.controller('FlashlightCtrl', function ($scope) {
   $scope.settings = {
     enableFriends: true
   };
